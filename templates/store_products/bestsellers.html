@@ -1,0 +1,15 @@
+
+
+        <div class="sidebar-products clearfix">
+          <h2>Bestsellers</h2>
+          {% for bestseller in bestsellers.all|slice:"0:3" %}
+          <div class="item">
+            <a href="{{ bestseller.slug }}"><img src="{{ bestseller.image.url }}"
+                alt="{{ bestseller.name|truncatewords:3 }}"></a>
+            <h3><a href="{{ bestseller.slug }}">{{ bestseller.name }}</a></h3>
+            <div class="price">${{ bestseller.price }}</div>
+          </div>
+         
+          {% endfor %}
+        </div>
+      </div>

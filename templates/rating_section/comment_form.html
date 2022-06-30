@@ -1,0 +1,16 @@
+  <!-- BEGIN FORM-->
+  <form action="{% url 'rating:add review' product.slug %}" method="post" class="reviews-form" role="form">
+    <h2>Write a review</h2>
+    {% csrf_token %}
+    {{ comment_form }}
+    <div class="form-group">
+      
+      <input type="range" value="4" step="0.25" id="backing5">
+      <div class="rateit" data-rateit-backingfld="#backing5" data-rateit-resetable="false"  data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="5">
+      TODO 5 stars RATING</div>
+    </div>
+    <div class="padding-top-20">
+      <button type="submit" class="btn btn-primary">Send</button>
+    </div> 
+  </form>
+  <!-- END FORM-->

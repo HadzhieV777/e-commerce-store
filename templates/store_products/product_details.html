@@ -1,0 +1,320 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block page_title %}
+<meta charset="utf-8">
+<title>{{ product.name|truncatewords:3 }} | Metronic Shop UI</title>
+{% endblock %}
+
+{% block page_content %}
+<div class="main">
+  <div class="container">
+    {% comment %} <ul class="breadcrumb">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="">Store</a></li>
+      <li class="active">{{ product.name }}</li>
+    </ul> {% endcomment %}
+    <!-- BEGIN SIDEBAR & CONTENT -->
+    <div class="row margin-bottom-40">
+      <!-- BEGIN SIDEBAR -->
+    
+      <!-- END SIDEBAR -->
+
+      <!-- BEGIN CONTENT -->
+      <div class="col-md-9 col-sm-7">
+        <div class="product-page">
+          <div class="row">
+            <div class="col-md-6 col-sm-6">
+              <div class="product-main-image">
+                <img src="{{ product.image.url }}" alt="{{ product.name|truncatewords:3 }}" class="img-responsive"
+                  data-BigImgsrc="{{ product.image.url }}">
+              </div>
+              {% comment %} <div class="product-other-images">
+                <a href="assets/pages/img/products/model3.jpg" class="fancybox-button" rel="photos-lib"><img
+                    alt="Berry Lace Dress" src="assets/pages/img/products/model3.jpg"></a>
+                <a href="assets/pages/img/products/model4.jpg" class="fancybox-button" rel="photos-lib"><img
+                    alt="Berry Lace Dress" src="assets/pages/img/products/model4.jpg"></a>
+                <a href="assets/pages/img/products/model5.jpg" class="fancybox-button" rel="photos-lib"><img
+                    alt="Berry Lace Dress" src="assets/pages/img/products/model5.jpg"></a>
+              </div> {% endcomment %}
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <h1>{{ product.name }}</h1>
+              <div class="price-availability-block clearfix">
+                <div class="price" title="{% if not product.discount %}{{ product.price }}{% else %}{{ price_with_discount}}{% endif %}">
+                  {% if not product.discount %}
+                  <strong><span>$</span>{{ product.price }}</strong>
+                  {% else %}
+                  <strong><span>$</span>{{ price_with_discount|floatformat:2 }}</strong>
+                  <em>$<span>{{ product.price }}</span></em>
+                  {% endif %}
+                </div>
+                <div class="availability">
+                  Availability: <strong>{% if product.in_stock %}In Stock{% else %}Out of Stock{% endif %}</strong>
+                </div>
+              </div>
+              <div class="description">
+                <p>{{ product.excerpt }}</p>
+              </div>
+              <div class="product-page-options">
+                <div class="pull-left">
+                  {% if sizes %}
+                  <label class="control-label">Size:</label>
+                  <select class="form-control input-sm">
+
+                    {% for size in sizes %}
+                    <option>{{ size }}</option>
+                    {% endfor %}
+
+                  </select>
+                </div>
+                {% else %}
+              </div>
+              {% endif %}
+            </div>
+            <div class="product-page-cart">
+              <div class="product-quantity">
+                <input id="product-quantity" type="text" value="1" readonly class="form-control input-sm">
+              </div>
+              <button class="btn btn-primary" id="add-button" value="{{ product.id }}" type="submit">Add to
+                cart</button>
+            </div>
+            <div class="review">
+              <input type="range" value="4" step="0.25" id="backing4">
+              <div class="rateit" data-rateit-backingfld="#backing4" data-rateit-resetable="false"  data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="5">
+              </div>
+              <a href="javascript:;">{{ reviews_count }} reviews</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:;">Write a review</a>
+            </div>
+            <ul class="social-icons">
+              <li><a class="facebook" data-original-title="facebook" href="javascript:;"></a></li>
+              <li><a class="twitter" data-original-title="twitter" href="javascript:;"></a></li>
+              <li><a class="googleplus" data-original-title="googleplus" href="javascript:;"></a></li>
+              <li><a class="evernote" data-original-title="evernote" href="javascript:;"></a></li>
+              <li><a class="tumblr" data-original-title="tumblr" href="javascript:;"></a></li>
+            </ul>
+          </div>
+
+          <div class="product-page-content">
+            <ul id="myTab" class="nav nav-tabs">
+              <li><a href="#Description" data-toggle="tab">Description</a></li>
+              <li><a href="#Information" data-toggle="tab">Information</a></li>
+              <li class="active"><a href="#Reviews" data-toggle="tab">Reviews ({{ reviews_count }})</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+              <div class="tab-pane fade" id="Description">
+                <p>{{ product.description }}</p>
+              </div>
+               {% comment %}
+              <div class="tab-pane fade" id="Information">
+                <table class="datasheet">
+                  <tr>
+                    <th colspan="2">Additional features</th>
+                  </tr>
+                  <tr>
+                    <td class="datasheet-features-type">Value 1</td>
+                    <td>21 cm</td>
+                  </tr>
+                  <tr>
+                    <td class="datasheet-features-type">Value 2</td>
+                    <td>700 gr.</td>
+                  </tr>
+                  <tr>
+                    <td class="datasheet-features-type">Value 3</td>
+                    <td>10 person</td>
+                  </tr>
+                  <tr>
+                    <td class="datasheet-features-type">Value 4</td>
+                    <td>14 cm</td>
+                  </tr>
+                  <tr>
+                    <td class="datasheet-features-type">Value 5</td>
+                    <td>plastic</td>
+                  </tr>
+                </table> {% endcomment %}
+              </div>
+              <div class="tab-pane fade in active" id="Reviews">
+                {% if not comments %}
+                <h5>There are no reviews for this product.</h5>
+                {% else %}
+                {% for comment in comments %}
+                <div class="review-item clearfix">
+                  <div class="review-item-submitted">
+                    <strong>{{ comment.user_name }}</strong>
+                    <em>{{ comment.published }}</em>
+                    <div class="rateit" data-rateit-value="5" data-rateit-ispreset="true" data-rateit-readonly="true">
+                    </div>
+                  </div>
+                  <div class="review-item-content">
+                    <p>{{ comment.text }}</p>
+                  </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+                <!-- BEGIN FORM-->
+                 {% include 'rating_section/comment_form.html' %}
+                <!-- END FORM-->
+              </div>
+            </div>
+          </div>
+          {% if product.on_sale %}
+          <div class="sticker sticker-sale"></div>
+          {% endif %}
+        </div>
+      
+      </div>
+    </div>
+    <!-- END CONTENT -->
+  </div>
+  <!-- END SIDEBAR & CONTENT -->
+
+  <!-- BEGIN SIMILAR PRODUCTS -->
+  {% comment %} <div class="row margin-bottom-40">
+    <div class="col-md-12 col-sm-12">
+      <h2>Most popular products</h2>
+      <div class="owl-carousel owl-carousel4">
+        <div>
+          <div class="product-item">
+            <div class="pi-img-wrapper">
+              <img src="assets/pages/img/products/k1.jpg" class="img-responsive" alt="Berry Lace Dress">
+              <div>
+                <a href="assets/pages/img/products/k1.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+              </div>
+            </div>
+            <h3><a href="shop-item.html">Berry Lace Dress</a></h3>
+            <div class="pi-price">$29.00</div>
+            <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
+            <div class="sticker sticker-new"></div>
+          </div>
+        </div>
+        <div>
+          <div class="product-item">
+            <div class="pi-img-wrapper">
+              <img src="assets/pages/img/products/k2.jpg" class="img-responsive" alt="Berry Lace Dress">
+              <div>
+                <a href="assets/pages/img/products/k2.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+              </div>
+            </div>
+            <h3><a href="shop-item.html">Berry Lace Dress2</a></h3>
+            <div class="pi-price">$29.00</div>
+            <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
+          </div>
+        </div>
+        <div>
+          <div class="product-item">
+            <div class="pi-img-wrapper">
+              <img src="assets/pages/img/products/k3.jpg" class="img-responsive" alt="Berry Lace Dress">
+              <div>
+                <a href="assets/pages/img/products/k3.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+              </div>
+            </div>
+            <h3><a href="shop-item.html">Berry Lace Dress3</a></h3>
+            <div class="pi-price">$29.00</div>
+            <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
+          </div>
+        </div>
+        <div>
+          <div class="product-item">
+            <div class="pi-img-wrapper">
+              <img src="assets/pages/img/products/k4.jpg" class="img-responsive" alt="Berry Lace Dress">
+              <div>
+                <a href="assets/pages/img/products/k4.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+              </div>
+            </div>
+            <h3><a href="shop-item.html">Berry Lace Dress4</a></h3>
+            <div class="pi-price">$29.00</div>
+            <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
+            <div class="sticker sticker-sale"></div>
+          </div>
+        </div>
+        <div>
+          <div class="product-item">
+            <div class="pi-img-wrapper">
+              <img src="assets/pages/img/products/k1.jpg" class="img-responsive" alt="Berry Lace Dress">
+              <div>
+                <a href="assets/pages/img/products/k1.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+              </div>
+            </div>
+            <h3><a href="shop-item.html">Berry Lace Dress5</a></h3>
+            <div class="pi-price">$29.00</div>
+            <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
+          </div>
+        </div>
+        <div>
+          <div class="product-item">
+            <div class="pi-img-wrapper">
+              <img src="assets/pages/img/products/k2.jpg" class="img-responsive" alt="Berry Lace Dress">
+              <div>
+                <a href="assets/pages/img/products/k2.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+              </div>
+            </div>
+            <h3><a href="shop-item.html">Berry Lace Dress6</a></h3>
+            <div class="pi-price">$29.00</div>
+            <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> {% endcomment %}
+  <!-- END SIMILAR PRODUCTS -->
+</div>
+</div>
+
+{% endblock %}
+
+{% block page_scripts %}
+<!-- BEGIN PAGE LEVEL JAVASCRIPTS (REQUIRED ONLY FOR CURRENT PAGE) -->
+<script src="{% static '/plugins/fancybox/source/jquery.fancybox.pack.js' %}" type="text/javascript"></script>
+<!-- pop up -->
+<script src="{% static '/plugins/owl.carousel/owl.carousel.min.js' %}" type="text/javascript"></script>
+<!-- slider for products -->
+<script src="{% static '/plugins/zoom/jquery.zoom.min.js' %}" type="text/javascript"></script><!-- product zoom -->
+<script src="{% static '/plugins/bootstrap-touchspin/bootstrap.touchspin.js' %}" type="text/javascript"></script>
+<!-- Quantity -->
+<script src="{% static '/plugins/uniform/jquery.uniform.min.js' %}" type="text/javascript"></script>
+<script src="{% static '/plugins/rateit/src/jquery.rateit.js' %}" type="text/javascript"></script>
+
+<script src="{% static '/corporate/scripts/layout.js' %}" type="text/javascript"></script>
+<script type="text/javascript">
+  jQuery(document).ready(function() {
+      Layout.init();    
+      Layout.initOWL();
+      Layout.initTwitter();
+      Layout.initImageZoom();
+      Layout.initTouchspin();
+      Layout.initUniform();
+  });
+</script>
+
+<script>
+  let totalPrice = 0
+  let totalItems = 0
+  document.getElementById('add-button').addEventListener('click', (e) => {
+    e.preventDefault();
+        $.ajax({
+          type: 'POST',
+            url: '{% url "cart:add to cart" %}',
+            data: {
+              productid: document.getElementById('add-button').value,
+              productqty: document.getElementById('product-quantity').value,
+              productprice: document.querySelector('div.price').title,
+              csrfmiddlewaretoken: "{{csrf_token}}",
+          action: 'post'
+      },
+      success: function (json) {
+        totalPrice += Number(json.price) * Number(json.qty)
+        totalItems += Number(json.qty)
+        document.querySelector(".top-cart-info-value").innerText = `${totalPrice.toFixed(2)}`
+        document.querySelector(".top-cart-info-count").innerText = totalItems
+      },
+      error: function (xhr, errmsg, err) {}
+    });
+  })
+</script>
+<!-- END PAGE LEVEL JAVASCRIPTS -->
+{% endblock %}

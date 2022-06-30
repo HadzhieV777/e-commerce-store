@@ -1,0 +1,42 @@
+{% extends 'base/base.html' %}
+{% block page_title %}
+<meta charset="utf-8">
+<title>Welcome | Metronic Shop UI</title>
+{% endblock %}
+
+{% block page_content %}
+
+<div class="main">
+    <div class="container">
+        <div class="row margin-bottom-40">
+
+            <!-- BEGIN SIDEBAR -->
+            {% include 'store_auth/redirect_pages/sidebar.html' %}
+            <!-- END SIDEBAR -->
+
+
+            <!-- BEGIN CONTENT -->
+            <div class="col-md-9 col-sm-7">
+                <div class="row">
+                    <div class="col-lg-8 col-md-offset-2 padding-left-10 padding-top-20">
+                        <h1 style="position: center">Welcome to Metronishop UI</h1>
+                        <h5 style="padding-left: 30px; position: center">Now you can shop faster and keep</h5>
+                        <h5 style="padding-left: 30px; position: center">track of the orders you have previously made.
+                        </h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 col-md-offset-2 padding-left-40 padding-top-20">
+                        <form action="{% url 'homepage' %}">
+                            <button style="margin-left: 50px; position: center" class="btn btn-primary" type="submit">Go
+                                to Home</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

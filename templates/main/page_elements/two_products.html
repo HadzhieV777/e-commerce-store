@@ -1,0 +1,25 @@
+{% load static %}
+
+<div class="col-md-6 two-items-bottom-items">
+    <h2>Sale</h2>
+    <div class="owl-carousel owl-carousel2">
+      <div>
+          {% for product in products_on_sale.all|slice:"0:2" %}
+        <div class="product-item">
+          <div class="pi-img-wrapper">
+            <img style="height: 200px; width: 200px;" src="{{ product.image.url }}" class="img-responsive" alt="{{ product.name|truncatewords:2 }}">
+            <div>
+                <a href="{{ product.image.url }}" class="btn btn-default fancybox-button">Zoom</a>
+                <a href="{% url "store:product details" product.slug %}" class="btn btn-default fancybox-fast-view">View</a>
+              </div>
+          </div>
+          <div class="sticker sticker-sale"></div>
+          <h3><a href="{{ product.slug }}">{{ product.name }}</a></h3>
+              <div class="pi-price">${{ product.price }}</div>
+              <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
+            </div>
+          </div>
+    
+      {% endfor %}
+    
+  </div>

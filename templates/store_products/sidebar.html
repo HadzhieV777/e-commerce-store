@@ -1,0 +1,17 @@
+
+    <ul class="list-group margin-bottom-25 sidebar-menu">
+        {% for category in categories %}
+        <li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="fa fa-angle-right"></i>
+                {{ category.name|title }}
+            </a></li>
+        <ul class="dropdown-menu">
+            {% for sub_category in category.product_subcategories.all %}
+            <li><a href="{{ sub_category.get_absolute_url }}"><i class="fa fa-angle-right"></i>
+                    {{ sub_category.name }}</a></li>
+            {% endfor %}
+        </ul>
+        {% endfor %}
+        </li>
+    </ul>
+    </li>
+    </ul>
