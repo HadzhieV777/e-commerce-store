@@ -83,7 +83,7 @@
               <input type="range" value="4" step="0.25" id="backing4">
               <div class="rateit" data-rateit-backingfld="#backing4" data-rateit-resetable="false"  data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="5">
               </div>
-              <a href="javascript:;">{{ reviews_count }} reviews</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:;">Write a review</a>
+              <a href="#Reviews" data-toggle="tab">{{ reviews_count }} reviews</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#Reviews" data-toggle="tab">Write a review</a>
             </div>
             <ul class="social-icons">
               <li><a class="facebook" data-original-title="facebook" href="javascript:;"></a></li>
@@ -104,33 +104,23 @@
               <div class="tab-pane fade" id="Description">
                 <p>{{ product.description }}</p>
               </div>
-               {% comment %}
               <div class="tab-pane fade" id="Information">
                 <table class="datasheet">
+                  {% if sizes %}
                   <tr>
-                    <th colspan="2">Additional features</th>
+                    <th colspan="2">Additional sizes</th>
                   </tr>
+                  {% for size in sizes %}
                   <tr>
-                    <td class="datasheet-features-type">Value 1</td>
-                    <td>21 cm</td>
+                    <td class="datasheet-features-type">{{ size }}</td>
                   </tr>
+                  {% endfor %}
+                  {% else %}
                   <tr>
-                    <td class="datasheet-features-type">Value 2</td>
-                    <td>700 gr.</td>
+                    <th colspan="2">There is no further information...</th>
                   </tr>
-                  <tr>
-                    <td class="datasheet-features-type">Value 3</td>
-                    <td>10 person</td>
-                  </tr>
-                  <tr>
-                    <td class="datasheet-features-type">Value 4</td>
-                    <td>14 cm</td>
-                  </tr>
-                  <tr>
-                    <td class="datasheet-features-type">Value 5</td>
-                    <td>plastic</td>
-                  </tr>
-                </table> {% endcomment %}
+                  {% endif %}
+                </table>
               </div>
               <div class="tab-pane fade in active" id="Reviews">
                 {% if not comments %}
