@@ -1,3 +1,4 @@
+from decimal import Decimal
 
 
 class Cart():
@@ -34,7 +35,7 @@ class Cart():
         and return products
         """
         product_ids = self.basket.keys()
-        products = Product.products.filter(id__in=product_ids)
+        products = Prduct.products.filter(id__in=product_ids)
         basket = self.basket.copy()
 
         for product in products:
