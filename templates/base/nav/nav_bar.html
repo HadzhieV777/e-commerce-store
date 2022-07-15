@@ -10,9 +10,22 @@
      <!-- BEGIN CART -->
      <div class="top-cart-block">
        <div class="top-cart-info">
-         <div id="cart-qty" class="top-cart-info-count">No Items</div>
-         <a href="{% url 'cart:cart summary' %}" class="top-cart-info-value">$0</a>
+        <a href="{% url 'cart:cart summary' %}" class="top-cart-info-count">
+         <div id="cart-qty" class="top-cart-info-count">
+          {% with total_qty=basket|length %}
+          {% if total_qty > 0 %}
+           {{ total_qty }}
+           {% else %}
+           0
+           {% endif %}
+          {% endwith %}
+         </div>
+        </a>
+         <!-- <a href="#" class="top-cart-info-value">$0</a> -->
        </div>
+       <a href="{% url 'cart:update cart' %}" class="top-cart-info-count">
+
+       </a>
        <a type=button href="#" class="fa fa-shopping-cart"></a>
        <div class="top-cart-content-wrapper">
         <div class="top-cart-content">
