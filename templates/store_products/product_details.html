@@ -100,6 +100,7 @@
               <li><a href="#Information" data-toggle="tab">Information</a></li>
               <li class="active"><a href="#Reviews" data-toggle="tab">Reviews ({{ reviews_count }})</a></li>
             </ul>
+            
             <div id="myTabContent" class="tab-content">
               <div class="tab-pane fade" id="Description">
                 <p>{{ product.description }}</p>
@@ -280,8 +281,9 @@
       Layout.initUniform();
   });
 </script>
+<script src="/static/corporate/scripts/request.js"></script>
 
-<script>
+<!-- <script>
   let totalPrice = 0
   let totalItems = 0
   document.getElementById('add-button').addEventListener('click', (e) => {
@@ -299,12 +301,14 @@
       success: function (json) {
         totalPrice += Number(json.price) * Number(json.qty)
         totalItems += Number(json.qty)
-        document.querySelector(".top-cart-info-value").innerText = `${totalPrice.toFixed(2)}`
-        document.querySelector(".top-cart-info-count").innerText = totalItems
+        json.qty = totalItems
+        json.price = totalPrice
+        // document.querySelector(".top-cart-info-value").innerText = `${totalPrice.toFixed(2)}`
+        document.querySelector(".top-cart-info-count").innerText =  json.qty
       },
       error: function (xhr, errmsg, err) {}
     });
   })
-</script>
+</script> -->
 <!-- END PAGE LEVEL JAVASCRIPTS -->
 {% endblock %}
